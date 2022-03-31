@@ -131,8 +131,8 @@ char *import_buf = NULL; /* buffer for receiving imported data.             */
 char *tmp;               /* temporary pointer into buffers.                 */
 int i;                   /* loop counter.                                   */
 int tmp_size;            /* size of a single object's data.                 */
-int *idx = NULL;         /* index used for multi-fn packs and unpacks.      */
-int idx_cnt = 0;         /* index counter for idx array.                    */
+size_t *idx = NULL;         /* index used for multi-fn packs and unpacks.      */
+size_t idx_cnt = 0;         /* index counter for idx array.                    */
 ZOLTAN_ID_PTR tmp_id = NULL; /* pointer to storage for a global ID in comm  
                                 buf  */
 ZOLTAN_ID_PTR lid;       /* temporary pointer to a local ID; used to pass
@@ -141,7 +141,7 @@ ZOLTAN_COMM_OBJ *imp_plan = NULL; /* Comm obj built from import lists. */
 ZOLTAN_COMM_OBJ *exp_plan = NULL; /* Comm obj built from export lists. */
 int msgtag, msgtag2;     /* Tags for communication routines                 */
 size_t total_send_size;  /* Total size of outcoming message (in #items)     */
-int total_recv_size;     /* Total size of incoming message (in #items)      */
+size_t total_recv_size;     /* Total size of incoming message (in #items)      */
 int aligned_int;         /* size of an int padded for alignment             */
 int dest;                /* temporary destination partition.                */
 int include_parts = 0;   /* flag indicating whether partition info is
@@ -422,7 +422,7 @@ int *actual_imp_to_part = NULL;          /* processor may not be included.  */
 
     if (zz->Pack_Obj_Multi != NULL) {
       /* Allocate an index array for ZOLTAN_PACK_OBJ_MULTI_FN. */
-      idx = (int *) ZOLTAN_MALLOC(actual_num_exp * sizeof(int));
+      idx = (size_t *) ZOLTAN_MALLOC(actual_num_exp * sizeof(size_t));
       if (!idx) {
         ZOLTAN_PRINT_ERROR(zz->Proc, yo, "Memory error.");
         ierr = ZOLTAN_MEMERR;
@@ -591,7 +591,7 @@ int *actual_imp_to_part = NULL;          /* processor may not be included.  */
       /* Allocate and fill input arrays for Unpack_Obj_Multi. */
       sizes = (int *) ZOLTAN_MALLOC(actual_num_imp * sizeof(int));
       tmp_id = (ZOLTAN_ID_PTR) ZOLTAN_MALLOC_GID_ARRAY(zz, actual_num_imp);
-      idx = (int *) ZOLTAN_MALLOC(actual_num_imp * sizeof(int));
+      idx = (size_t *) ZOLTAN_MALLOC(actual_num_imp * sizeof(size_t));
       if (!sizes || !tmp_id || !idx) {
         ZOLTAN_PRINT_ERROR(zz->Proc, yo, "Memory error.");
         ierr = ZOLTAN_MEMERR;

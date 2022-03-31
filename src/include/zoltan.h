@@ -890,7 +890,7 @@ typedef void ZOLTAN_PACK_OBJ_MULTI_FN(
   ZOLTAN_ID_PTR local_ids,
   int *dest_proc,
   int *size,
-  int *index,
+  size_t *index,
   char *buffer,
   int *ierr
 );
@@ -904,7 +904,7 @@ typedef void ZOLTAN_PACK_OBJ_MULTI_FORT_FN(
   ZOLTAN_ID_PTR local_ids,
   int *dest_proc,
   int *size,
-  int *index,
+  size_t *index,
   char *buffer,
   int *ierr
 );
@@ -983,7 +983,7 @@ typedef void ZOLTAN_UNPACK_OBJ_MULTI_FN(
   int num_ids,
   ZOLTAN_ID_PTR global_ids,
   int *size,
-  int *index,
+  size_t *index,
   char *buffer,
   int *ierr
 );
@@ -994,7 +994,7 @@ typedef void ZOLTAN_UNPACK_OBJ_MULTI_FORT_FN(
   int *num_ids,
   ZOLTAN_ID_PTR global_ids,
   int *size,
-  int *index,
+  size_t *index,
   char *buffer,
   int *ierr
 );

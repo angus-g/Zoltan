@@ -82,7 +82,7 @@ int      *sizes)		/* variable size of objects (if not NULL) */
 {
     int       total_send_length;/* total message length I send in plan */
     int       max_recv_length;	/* biggest message I recv in plan */
-    int       sum_recv_sizes;	/* sum of the item sizes I receive */
+    size_t       sum_recv_sizes;	/* sum of the item sizes I receive */
     int       comm_flag;		/* status flag */
     int       i;		/* loop counter */
     static char *yo = "Zoltan_Comm_Reverse_Plan";

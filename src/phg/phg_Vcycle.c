@@ -233,7 +233,8 @@ int Zoltan_PHG_Partition (
 
   PHGComm *hgc = hg->comm;
   VCycle  *vcycle=NULL, *del=NULL;
-  int  i, err = ZOLTAN_OK, middle;
+  size_t i;
+  int  err = ZOLTAN_OK, middle;
   ZOLTAN_GNO_TYPE origVpincnt; /* for processor reduction test */
   ZOLTAN_GNO_TYPE prevVcnt     = 2*hg->dist_x[hgc->nProc_x]; /* initialized so that the */
   ZOLTAN_GNO_TYPE prevVedgecnt = 2*hg->dist_y[hgc->nProc_y]; /* while loop will be entered

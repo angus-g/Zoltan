@@ -101,12 +101,12 @@ struct Zoltan_Comm_Obj {	/* data for mapping between decompositions */
 				/* Note only on sending processor: */
 				/* assuming recv proc can figure it out */
 
-    int      *sizes_to;         /* size of each msg to send (if items vary) */
-    int      *sizes_from;       /* size of each msg to recv (if items vary) */
+    size_t      *sizes_to;         /* size of each msg to send (if items vary) */
+    size_t      *sizes_from;       /* size of each msg to recv (if items vary) */
 
     /* Following used if send/recv data is packed contiguously & items vary */
-    int      *starts_to_ptr;	/* where in dense array sends starts */
-    int      *starts_from_ptr;	/* where in dense each recv starts */
+    size_t      *starts_to_ptr;	/* where in dense array sends starts */
+    size_t      *starts_from_ptr;	/* where in dense each recv starts */
 
     /* Following used is send/recv data not packed contiguously & items vary */
     int      *indices_to_ptr;   /* where to find items I send in my msgs */
@@ -123,8 +123,8 @@ struct Zoltan_Comm_Obj {	/* data for mapping between decompositions */
     int       nindices_to;
     int       nindices_from;
     int       self_msg;		/* do I have data for myself? */
-    int       max_send_size;	/* size of longest message I send (w/o self) */
-    int       total_recv_size;	/* total amount of data I'll recv (w/ self) */
+    size_t       max_send_size;	/* size of longest message I send (w/o self) */
+    size_t       total_recv_size;	/* total amount of data I'll recv (w/ self) */
     int       maxed_recvs;      /* do I have to many receives to post all
                                  * at once? if so use MPI_Alltoallv */
     MPI_Comm  comm;		/* communicator for operation */

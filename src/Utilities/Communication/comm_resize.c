@@ -62,20 +62,20 @@ int       Zoltan_Comm_Resize(
 ZOLTAN_COMM_OBJ *plan,			/* communication plan object */
 int      *sizes,		/* size of each item I'm sending */
 int       tag,			/* message tag I can use */
-int      *sum_recv_sizes)       /* sum of the sizes of the items I'll receive */
+size_t      *sum_recv_sizes)       /* sum of the sizes of the items I'll receive */
 {
     int       return_flag;	/* returned error code */
     int       my_proc;		/* my processor ID */
     int       nsends, nrecvs;	/* number of msgs I'll send & recv */
     int       self_msg;		/* do I have data for myself? */
-    int       sum;		/* running total of item sizes */
+    size_t       sum;		/* running total of item sizes */
     int      *offset = NULL;	/* address of each item in send array */
     int      *index = NULL;	/* indices into start_from_ptr */
     int      *sort_val = NULL;	/* start_from to order properly */
-    int      *sizes_to = NULL;  /* size of each msg to send (if items vary) */
-    int      *sizes_from = NULL;/* size of each msg to recv (if items vary) */
-    int      *starts_to_ptr = NULL;	/* where in dense vector sends start */
-    int      *starts_from_ptr = NULL;	/* where in dense vector recvs start */
+    size_t      *sizes_to = NULL;  /* size of each msg to send (if items vary) */
+    size_t      *sizes_from = NULL;/* size of each msg to recv (if items vary) */
+    size_t      *starts_to_ptr = NULL;	/* where in dense vector sends start */
+    size_t      *starts_from_ptr = NULL;	/* where in dense vector recvs start */
     int      *indices_to_ptr = NULL;	/* where to find items I send */
 					/* ordered like procs_to */
     int      *indices_from_ptr = NULL;	/* where to find items I recv */
@@ -136,13 +136,13 @@ int      *sum_recv_sizes)       /* sum of the sizes of the items I'll receive */
 	for (i = 0; i < plan->nvals; i++) plan->sizes[i] = sizes[i];
 
 	return_flag = ZOLTAN_OK;
-	sizes_to = (int *) ZOLTAN_MALLOC((nsends + self_msg) * sizeof(int));
+	sizes_to = (size_t *) ZOLTAN_MALLOC((nsends + self_msg) * sizeof(size_t));
 	if (sizes_to == NULL && (nsends + self_msg) != 0) {
 	    return_flag = ZOLTAN_MEMERR;
 	    goto Mem_Err;
 	}
 
-	sizes_from = (int *) ZOLTAN_MALLOC((nrecvs + self_msg) * sizeof(int));
+	sizes_from = (size_t *) ZOLTAN_MALLOC((nrecvs + self_msg) * sizeof(size_t));
 	if (sizes_from == NULL && (nrecvs + self_msg) != 0) {
 	    return_flag = ZOLTAN_MEMERR;
 	    goto Mem_Err;
@@ -159,7 +159,7 @@ int      *sum_recv_sizes)       /* sum of the sizes of the items I'll receive */
 		need to allocate, set indices_to_ptr
 	   3,4. mirror cases for _from
 	*/
-	starts_to_ptr = (int *) ZOLTAN_MALLOC((nsends + self_msg) * sizeof(int));
+	starts_to_ptr = (size_t *) ZOLTAN_MALLOC((nsends + self_msg) * sizeof(size_t));
 	if (starts_to_ptr == NULL && (nsends + self_msg) != 0) {
 	    return_flag = ZOLTAN_MEMERR;
 	    goto Mem_Err;
@@ -243,7 +243,7 @@ int      *sum_recv_sizes)       /* sum of the sizes of the items I'll receive */
 	    sizes_from, plan->procs_from, nrecvs, 
 	    &plan->total_recv_size, my_proc, tag, plan->comm);
 
-	starts_from_ptr = (int *) ZOLTAN_MALLOC((nrecvs + self_msg) * sizeof(int));
+	starts_from_ptr = (size_t *) ZOLTAN_MALLOC((nrecvs + self_msg) * sizeof(size_t));
 	if (starts_from_ptr == NULL && (nrecvs + self_msg) != 0) {
 	    return_flag = ZOLTAN_MEMERR;
 	    goto Mem_Err;

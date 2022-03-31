@@ -77,10 +77,10 @@ int Zoltan_Comm_Invert_Map(int*, int*, int, int, int**, int**, int*, int, int,
 
 int Zoltan_Comm_Sort_Ints(int*, int*, int);
 
-int Zoltan_Comm_Exchange_Sizes(int*, int*, int, int, int*, int*, int, int*, int,
+int Zoltan_Comm_Exchange_Sizes(size_t*, int*, int, int, size_t*, int*, int, size_t*, int,
  int, MPI_Comm);
 
-int Zoltan_Comm_Resize(ZOLTAN_COMM_OBJ*, int*, int, int*);
+int Zoltan_Comm_Resize(ZOLTAN_COMM_OBJ*, int*, int, size_t*);
 
 int Zoltan_Comm_Do     (ZOLTAN_COMM_OBJ*, int, char*, int, char*);
 int Zoltan_Comm_Do_Post(ZOLTAN_COMM_OBJ*, int, char*, int, char*);

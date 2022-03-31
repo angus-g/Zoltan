@@ -589,7 +589,7 @@ static int pmatching_hybrid_ipm(
 /* Forward declaration for a routine that encapsulates the common calls to use
 ** the Zoltan unstructured communications library for the matching code */
 static int communication_by_plan (ZZ* zz, int sendcnt, int* dest, int* size, 
- int scale, char * send, int* reccnt, int* recsize, int* nRec, char ** rec,
+ int scale, char * send, int* reccnt, size_t* recsize, int* nRec, char ** rec,
  MPI_Comm comm, int tag);
 
 
@@ -730,7 +730,8 @@ static int pmatching_ipm (ZZ *zz,
    * and Zoltan_Comm_*, which both expect ints.
    */
 
-  int nRec, nSend, reccnt=0, sendcnt, recsize, sendsize, msgsize, nEdgebuf;
+  int nRec, nSend, reccnt=0, sendcnt, sendsize, msgsize, nEdgebuf;
+  size_t recsize;
 
   float f, bestsum;      /* holds current best inner product */
   float *sums = NULL; /* holds candidate's inner products with each local vtx */
@@ -1439,7 +1440,7 @@ End:
 
 static int communication_by_plan (ZZ* zz, int sendcnt, int* dest, int* size, 
  int scale, char * send, 
- int* reccnt, int *recsize, int * nRec, char ** rec, MPI_Comm comm, int tag)
+ int* reccnt, size_t *recsize, int * nRec, char ** rec, MPI_Comm comm, int tag)
 {
    ZOLTAN_COMM_OBJ *plan = NULL;
    int err;
@@ -1499,7 +1500,8 @@ static int pmatching_agg_ipm (ZZ *zz,
 {
   int ierr = ZOLTAN_OK;    
   int i, j, n, m, round, vindex;                        /* loop counters  */
-  int sendcnt, sendsize, reccnt=0, recsize, msgsize;       /* temp variables */
+  int sendcnt, sendsize, reccnt=0, msgsize;       /* temp variables */
+  size_t recsize;
   int nRounds;                /* # of matching rounds to be performed;       */
   int nSend,             /* working buffers and their sizes */
     *dest = NULL,    nDest,  

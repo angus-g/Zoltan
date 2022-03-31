@@ -9,7 +9,8 @@ interface
   integer(Zoltan_INT), intent(in)  :: dummy(*)
   integer(Zoltan_INT), intent(in) :: num_gid_entries, num_ids
   integer(Zoltan_INT), intent(in) :: global_id(*)
-  integer(Zoltan_INT), intent(in) :: size(*), idx(*)
+  integer(Zoltan_INT), intent(in) :: size(*)
+  integer(kind=8), intent(in) :: idx(*)
   integer(Zoltan_INT), intent(in) :: buf(*)
   integer(Zoltan_INT), intent(out) :: ierr
   end subroutine fn_ptr
@@ -34,7 +35,8 @@ interface
   integer(Zoltan_INT) , intent(in) :: data(*)
   integer(Zoltan_INT), intent(in) :: num_gid_entries, num_ids
   integer(Zoltan_INT), intent(in) :: global_id(*)
-  integer(Zoltan_INT), intent(in) :: size(*), idx(*)
+  integer(Zoltan_INT), intent(in) :: size(*)
+  integer(kind=8), intent(in) :: idx(*)
   integer(Zoltan_INT), intent(in) :: buf(*)
   integer(Zoltan_INT), intent(out) :: ierr
   end subroutine fn_ptr
@@ -60,7 +62,8 @@ interface
   real(Zoltan_FLOAT) , intent(in) :: data(*)
   integer(Zoltan_INT), intent(in) :: num_gid_entries, num_ids
   integer(Zoltan_INT), intent(in) :: global_id(*)
-  integer(Zoltan_INT), intent(in) :: size(*), idx(*)
+  integer(Zoltan_INT), intent(in) :: size(*)
+  integer(kind=8), intent(in) :: idx(*)
   integer(Zoltan_INT), intent(in) :: buf(*)
   integer(Zoltan_INT), intent(out) :: ierr
   end subroutine fn_ptr
@@ -86,7 +89,8 @@ interface
   real(Zoltan_DOUBLE) , intent(in) :: data(*)
   integer(Zoltan_INT), intent(in) :: num_gid_entries, num_ids
   integer(Zoltan_INT), intent(in) :: global_id(*)
-  integer(Zoltan_INT), intent(in) :: size(*), idx(*)
+  integer(Zoltan_INT), intent(in) :: size(*)
+  integer(kind=8), intent(in) :: idx(*)
   integer(Zoltan_INT), intent(in) :: buf(*)
   integer(Zoltan_INT), intent(out) :: ierr
   end subroutine fn_ptr
@@ -113,7 +117,8 @@ interface
   type(Zoltan_User_Data_1) , intent(in) :: data
   integer(Zoltan_INT), intent(in) :: num_gid_entries, num_ids
   integer(Zoltan_INT), intent(in) :: global_id(*)
-  integer(Zoltan_INT), intent(in) :: size(*), idx(*)
+  integer(Zoltan_INT), intent(in) :: size(*)
+  integer(kind=8), intent(in) :: idx(*)
   integer(Zoltan_INT), intent(in) :: buf(*)
   integer(Zoltan_INT), intent(out) :: ierr
   end subroutine fn_ptr
@@ -140,7 +145,8 @@ interface
   type(Zoltan_User_Data_2) , intent(in) :: data
   integer(Zoltan_INT), intent(in) :: num_gid_entries, num_ids
   integer(Zoltan_INT), intent(in) :: global_id(*)
-  integer(Zoltan_INT), intent(in) :: size(*), idx(*)
+  integer(Zoltan_INT), intent(in) :: size(*)
+  integer(kind=8), intent(in) :: idx(*)
   integer(Zoltan_INT), intent(in) :: buf(*)
   integer(Zoltan_INT), intent(out) :: ierr
   end subroutine fn_ptr
@@ -167,7 +173,8 @@ interface
   type(Zoltan_User_Data_3) , intent(in) :: data
   integer(Zoltan_INT), intent(in) :: num_gid_entries, num_ids
   integer(Zoltan_INT), intent(in) :: global_id(*)
-  integer(Zoltan_INT), intent(in) :: size(*), idx(*)
+  integer(Zoltan_INT), intent(in) :: size(*)
+  integer(kind=8), intent(in) :: idx(*)
   integer(Zoltan_INT), intent(in) :: buf(*)
   integer(Zoltan_INT), intent(out) :: ierr
   end subroutine fn_ptr
@@ -194,7 +201,8 @@ interface
   type(Zoltan_User_Data_4) , intent(in) :: data
   integer(Zoltan_INT), intent(in) :: num_gid_entries, num_ids
   integer(Zoltan_INT), intent(in) :: global_id(*)
-  integer(Zoltan_INT), intent(in) :: size(*), idx(*)
+  integer(Zoltan_INT), intent(in) :: size(*)
+  integer(kind=8), intent(in) :: idx(*)
   integer(Zoltan_INT), intent(in) :: buf(*)
   integer(Zoltan_INT), intent(out) :: ierr
   end subroutine fn_ptr

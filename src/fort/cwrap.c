@@ -527,7 +527,7 @@ void Zoltan_Pack_Obj_Multi_Fort_Wrapper(
   ZOLTAN_ID_PTR local_ids,
   int *dest_proc,
   int *size,
-  int *index,
+  size_t *index,
   char *buffer,
   int *ierr)
 {
@@ -573,7 +573,7 @@ void Zoltan_Unpack_Obj_Multi_Fort_Wrapper(
   int num_ids,
   ZOLTAN_ID_PTR global_ids,
   int *size,
-  int *index,
+  size_t *index,
   char *buffer,
   int *ierr)
 {

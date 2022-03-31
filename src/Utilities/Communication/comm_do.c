@@ -225,12 +225,24 @@ char *recv_data)		/* array of data I'll own after comm */
 	    for (i = 0; i < plan->nrecvs + plan->self_msg; i++) {
 		if (plan->procs_from[i] != my_proc) {
                     if (plan->sizes_from[i]) {
-		        MPI_Irecv((void *)
-                            &plan->recv_buff[(size_t)(plan->starts_from_ptr[i]) 
-                                              * (size_t)nbytes],
-		                  plan->sizes_from[i] * nbytes,
-			          (MPI_Datatype) MPI_BYTE, plan->procs_from[i], 
-			          tag, plan->comm, &plan->request[k]);
+		      size_t idx = 0;
+		      size_t remaining = plan->sizes_from[i] * nbytes;
+		      int chunk = 0;
+
+		      while (remaining > 0) {
+			// recv in chunks of at most INT_MAX
+			size_t recv_size = (remaining > INT_MAX) ? INT_MAX : remaining;
+
+			MPI_Irecv((void *)
+				  &plan->recv_buff[(size_t)(plan->starts_from_ptr[i]) * (size_t)nbytes + idx],
+				  recv_size,
+				  (MPI_Datatype) MPI_BYTE, plan->procs_from[i],
+				  tag + chunk, plan->comm, &plan->request[k]);
+
+			chunk++;
+			remaining -= recv_size;
+			idx += recv_size;
+		      }
                     }
                     else
                         plan->request[k] = MPI_REQUEST_NULL;
@@ -340,14 +352,25 @@ char *recv_data)		/* array of data I'll own after comm */
     else {			/* Data of differing sizes */
 	if (plan->indices_to == NULL) {	/* data already blocked by processor. */
 	    for (i = proc_index, j = 0; j < nblocks; j++) {
-
 		if (plan->procs_to[i] != my_proc) {
                     if (plan->sizes_to[i]) {
+		      size_t idx = 0;
+		      size_t remaining = plan->sizes_to[i] * nbytes;
+		      int chunk = 0;
+
+		      while (remaining > 0) {
+			size_t send_size = (remaining > INT_MAX) ? INT_MAX : remaining;
+
 		        MPI_Rsend((void *)
-                                  &send_data[(size_t)(plan->starts_to_ptr[i]) * (size_t)nbytes],
-			          plan->sizes_to[i] * nbytes,
+                                  &send_data[(size_t)(plan->starts_to_ptr[i]) * (size_t)nbytes + idx],
+			          send_size,
 			          (MPI_Datatype) MPI_BYTE, plan->procs_to[i],
-			          tag, plan->comm);
+			          tag + chunk, plan->comm);
+
+			chunk++;
+			remaining -= send_size;
+			idx += send_size;
+		      }
                     }
 		}
 		else
@@ -360,7 +383,8 @@ char *recv_data)		/* array of data I'll own after comm */
                 if (plan->sizes_to[self_num]) {
                     char* lrecv = &plan->recv_buff[self_recv_address];
                     char* lsend = &send_data[(size_t)(plan->starts_to_ptr[self_num]) * (size_t)nbytes];
-                    int sindex = plan->sizes_to[self_num], idx;
+		    int idx;
+                    size_t sindex = plan->sizes_to[self_num];
                     for (idx=0; idx<nbytes; idx++) {
                         memcpy(lrecv, lsend, sindex);
                         lrecv += sindex;
@@ -405,7 +429,8 @@ char *recv_data)		/* array of data I'll own after comm */
                         char* lrecv = &plan->recv_buff[self_recv_address];
                         size_t send_idx = (size_t)kk * (size_t)nbytes;
                         char* lsend = &send_data[send_idx];
-                        int sindex = plan->sizes[plan->indices_to[j]], idx;
+			int idx;
+                        size_t sindex = plan->sizes[plan->indices_to[j]];
                         for (idx=0; idx<nbytes; idx++) {
                             memcpy(lrecv, lsend, sindex);
                             lrecv += sindex;

@@ -110,7 +110,7 @@ public:
     return *this;
   }
       
-  int Resize(int *sizes, const int &tag, int *sum_recv_sizes)
+  int Resize(int *sizes, const int &tag, size_t *sum_recv_sizes)
     {
     return Zoltan_Comm_Resize( this->Plan, sizes, tag, sum_recv_sizes);
     }
@@ -178,9 +178,9 @@ public:
         tag, comm);
     }
       
-  static int Exchange_Sizes( int *sizes_to, int *procs_to, 
+  static int Exchange_Sizes( size_t *sizes_to, int *procs_to, 
     const int &nsends, const int &self_msg,
-    int *sizes_from, int *procs_from, const int &nrecvs, int *total_recv_size,
+    size_t *sizes_from, int *procs_from, const int &nrecvs, size_t *total_recv_size,
     const int &my_proc, const int &tag, const MPI_Comm &comm) 
     {
     return Zoltan_Comm_Exchange_Sizes(sizes_to, procs_to, nsends, self_msg,

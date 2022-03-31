@@ -470,7 +470,8 @@ static int migrate_to_next_subgroups(HierPartParams *hpp, int num_export,
 {
   MPI_Comm comm;
   int ids[2];
-  int i, j, k, w, ierr;
+  size_t k;
+  int i, j, w, ierr;
   int rank, size;
   int nextRank, nextSize, nextGroup;
   int gnos_per_gid, keySize, hashTableSize;

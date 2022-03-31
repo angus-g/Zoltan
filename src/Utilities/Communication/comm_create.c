@@ -405,10 +405,10 @@ int Zoltan_Comm_Copy_To(ZOLTAN_COMM_OBJ **toptr, ZOLTAN_COMM_OBJ *from)
     COPY_BUFFER(indices_to, int, to->nindices_to);
     COPY_BUFFER(indices_from, int, to->nindices_from);
     COPY_BUFFER(sizes, int, to->nvals + 1);
-    COPY_BUFFER(sizes_to, int, to->nsends + to->self_msg);
-    COPY_BUFFER(sizes_from, int, to->nrecvs + to->self_msg);
-    COPY_BUFFER(starts_to_ptr, int, to->nsends + to->self_msg);
-    COPY_BUFFER(starts_from_ptr, int, to->nrecvs + to->self_msg);
+    COPY_BUFFER(sizes_to, size_t, to->nsends + to->self_msg);
+    COPY_BUFFER(sizes_from, size_t, to->nrecvs + to->self_msg);
+    COPY_BUFFER(starts_to_ptr, size_t, to->nsends + to->self_msg);
+    COPY_BUFFER(starts_from_ptr, size_t, to->nrecvs + to->self_msg);
     COPY_BUFFER(indices_to_ptr, int, to->nvals);
     COPY_BUFFER(indices_from_ptr, int, to->nvals);
 

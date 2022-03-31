@@ -114,7 +114,8 @@ ZOLTAN_ID_PTR gid_requests = NULL;
 int add_vweight, nEdge;
 int ew_op;
 int randomizeInitDist, add_obj_weight;
-int i, j, w, k, cnt, dim, rc;
+ size_t cnt;
+int i, j, w, k, dim, rc;
 int nRequests;
 
 float *src, *dest;

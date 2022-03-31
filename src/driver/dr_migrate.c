@@ -1186,7 +1186,7 @@ void migrate_pack_elem_multi(
   ZOLTAN_ID_PTR local_ids,
   int *dest_proc,
   int *size,
-  int *index,
+  size_t *index,
   char *buffer,
   int *ierr
 )
@@ -1214,7 +1214,7 @@ void migrate_unpack_elem_multi(
   int num_ids,
   ZOLTAN_ID_PTR global_ids,
   int *size,
-  int *index,
+  size_t *index,
   char *buffer,
   int *ierr
 )

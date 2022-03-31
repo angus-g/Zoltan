@@ -819,7 +819,8 @@ subroutine migrate_pack_elem_multi(data, num_gid_entries, num_lid_entries, &
 integer(Zoltan_INT), intent(in) :: data(*)
 integer(Zoltan_INT), intent(in) :: num_gid_entries, num_lid_entries, num_ids
 integer(Zoltan_INT), intent(in) :: elem_gid(*), elem_lid(*)
-integer(Zoltan_INT), intent(in) :: mig_proc(*), elem_data_size(*), idx(*)
+integer(Zoltan_INT), intent(in) :: mig_proc(*), elem_data_size(*)
+integer(kind=8), intent(in) :: idx(*)
 integer(Zoltan_INT), intent(out) :: buf(*)
 integer(Zoltan_INT), intent(out) :: ierr
 integer(Zoltan_INT) :: i;
@@ -981,7 +982,8 @@ subroutine migrate_unpack_elem_multi(data, num_gid_entries, num_ids, &
 integer(Zoltan_INT), intent(in) :: data(*)
 integer(Zoltan_INT), intent(in) :: num_gid_entries, num_ids
 integer(Zoltan_INT), intent(in) :: elem_gid(*)
-integer(Zoltan_INT), intent(in) :: elem_data_size(*), idx(*)
+integer(Zoltan_INT), intent(in) :: elem_data_size(*)
+integer(kind=8), intent(in) :: idx(*)
 integer(Zoltan_INT), intent(in) :: buf(*)
 integer(Zoltan_INT), intent(out) :: ierr
 integer(Zoltan_INT) :: i

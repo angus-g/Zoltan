@@ -112,7 +112,8 @@ int Zoltan_PHG_Coarsening
 {
   char     *yo = "Zoltan_PHG_Coarsening";
   PHGComm  *hgc = hg->comm;
-  int   ierr=ZOLTAN_OK, i, j, count, size, me=hgc->myProc_x, idx, ni;
+  int   ierr=ZOLTAN_OK, i, j, count, size, me=hgc->myProc_x, ni;
+  size_t size_size, idx;
   int   *vmark=NULL, *listlno=NULL, *listproc=NULL, *ip=NULL;
   int   *ahindex=NULL, *hlsize=NULL, *hsize=NULL, *ids=NULL, *iden;
   int   *emptynets=NULL, emptynetsize, *idennets=NULL, *allemptynets=NULL, *allidennets=NULL,
@@ -423,7 +424,8 @@ int Zoltan_PHG_Coarsening
   }
   
   /* call Comm_Resize since we have variable-size messages */
-  Zoltan_Comm_Resize(*comm_plan, msg_size, PLAN_TAG+2, &size); 
+  Zoltan_Comm_Resize(*comm_plan, msg_size, PLAN_TAG+2, &size_size);
+  size = size_size;
 
   /* Allocate receive buffer. */
   /* size is the size of the received data, measured in #ints */
